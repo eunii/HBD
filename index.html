@@ -1801,15 +1801,18 @@ button:focus-visible {
     round++;
     updateStatus();
 
-    $("roundSummary").innerHTML=
-      '<div class="round-summary-row">'+
-        '<span>🎟️ 이번 회차 당첨금</span>'+
-        '<strong>'+money(prizes[round-1])+'</strong>'+
-      '</div>'+
-      '<div class="round-summary-row">'+
-        '<span>💰 현재 누적 당첨금</span>'+
-        '<strong>'+money(totalEarned())+'</strong>'+
+    
+    $("roundSummary").innerHTML =
+      '<div class="round-summary-row">' +
+        '<span>🎟️ ' + round + '회차 당첨금</span>' +
+        '<strong>' + money(prizes[round - 1]) + '</strong>' +
+      '</div>' +
+    
+      '<div class="round-summary-row">' +
+        '<span>💰 현재 누적 당첨금</span>' +
+        '<strong>' + money(totalEarned()) + '</strong>' +
       '</div>';
+
 
     $("roundSummary").classList.remove("hidden");
 
