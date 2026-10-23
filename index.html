@@ -18,7 +18,7 @@
   --white:#f8f5e9;
   --muted:#b3c9c0;
 }
-꼬
+
 * { box-sizing:border-box; }
 
 html { scroll-behavior:smooth; }
@@ -247,7 +247,10 @@ h1 {
   font-weight:900;
 }
 
-.dots { display:flex;gap:6px; }
+.dots {
+  display:flex;
+  gap:6px;
+}
 
 .dot {
   width:11px;
@@ -297,7 +300,9 @@ h1 {
   transition:transform .15s;
 }
 
-.ticket:active { transform:translateY(4px); }
+.ticket:active {
+  transform:translateY(4px);
+}
 
 .ticket::before {
   content:"✦";
@@ -317,7 +322,9 @@ h1 {
   font-size:11px;
 }
 
-.ticket-icon { font-size:32px; }
+.ticket-icon {
+  font-size:32px;
+}
 
 .ticket-name {
   font-size:clamp(13px,3.5vw,17px);
@@ -337,7 +344,9 @@ h1 {
   letter-spacing:0;
 }
 
-#selection { scroll-margin-top:16px; }
+#selection {
+  scroll-margin-top:16px;
+}
 
 .earnings {
   border:1px solid #c5a45f;
@@ -366,7 +375,9 @@ h1 {
   border-right:1px solid #ffffff20;
 }
 
-.earning-cell:last-child { border-right:0; }
+.earning-cell:last-child {
+  border-right:0;
+}
 
 .earning-label {
   color:#bdcfc5;
@@ -458,7 +469,8 @@ h1 {
 .scratch-row {
   display:grid;
   grid-template-columns:
-    repeat(3,minmax(0,1fr)) minmax(78px,1.45fr);
+    repeat(3,minmax(0,1fr))
+    minmax(78px,1.45fr);
   gap:5px;
   align-items:stretch;
   border:1px solid #3b594e;
@@ -517,18 +529,53 @@ h1 {
   white-space:nowrap;
 }
 
+/* 당첨된 줄 강조 */
 .scratch-row.winner {
   border-color:var(--gold);
   background:#3c482c;
   animation:winGlow 2s ease-in-out infinite;
 }
 
-@keyframes winGlow {
-  0%,100% { box-shadow:0 0 9px #f6d87830; }
-  50% { box-shadow:0 0 20px #f6d87890; }
+/* 당첨 표시를 금액 칸 내부에 넣어
+   복권 줄 높이가 변하지 않도록 처리 */
+.scratch-row.winner .amount-box {
+  position:relative;
+  border:2px solid #f6d878;
+  background:#514c2d;
+  padding-top:14px;
 }
 
-.scratch-row.loser { opacity:.42; }
+.scratch-row.winner .amount-box::before {
+  content:"✓ 당첨";
+  position:absolute;
+  top:2px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#1d291d;
+  background:#f6d878;
+  border-radius:4px;
+  padding:1px 5px;
+  font-size:9px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.scratch-row.winner .amount-value {
+  color:#fff3a9;
+}
+
+@keyframes winGlow {
+  0%,100% {
+    box-shadow:0 0 9px #f6d87830;
+  }
+  50% {
+    box-shadow:0 0 20px #f6d87890;
+  }
+}
+
+.scratch-row.loser {
+  opacity:.42;
+}
 
 #scratchCanvas {
   position:absolute;
@@ -559,6 +606,28 @@ h1 {
   word-break:keep-all;
 }
 
+/* 마지막 복권 2줄 당첨 안내 */
+.result-head {
+  display:block;
+  font-size:23px;
+  color:#fff0a5;
+  margin-bottom:7px;
+}
+
+.result-detail {
+  display:block;
+  font-size:14px;
+  line-height:1.9;
+  color:#f4e8c5;
+}
+
+.result-total {
+  display:block;
+  margin-top:8px;
+  font-size:22px;
+  color:#f6d878;
+}
+
 .round-summary {
   border:1px solid #a58c56;
   border-radius:13px;
@@ -586,7 +655,9 @@ h1 {
   border-radius:13px;
   padding:16px 12px;
   color:#1b2a20;
-  background:linear-gradient(100deg,#d5a64d,#fff1a8,#d6a64c);
+  background:linear-gradient(
+    100deg,#d5a64d,#fff1a8,#d6a64c
+  );
   font-size:15px;
   font-weight:900;
   cursor:pointer;
@@ -612,7 +683,9 @@ h1 {
   border:2px solid var(--gold);
   border-radius:20px;
   background:
-    radial-gradient(circle at center,#56502e,#15352b 75%);
+    radial-gradient(
+      circle at center,#56502e,#15352b 75%
+    );
   box-shadow:0 0 28px #f6d87836;
 }
 
@@ -626,13 +699,15 @@ h1 {
   margin:16px 0 22px;
 }
 
-/* 세 편지 모두 동일한 디자인 */
+/* 아빠, 엄마, 동생 편지 디자인 통일 */
 .letter {
   position:relative;
   overflow:hidden;
   margin:15px 0;
   padding:22px 19px;
-  background:linear-gradient(145deg,#fffaf0,#f7eedb);
+  background:linear-gradient(
+    145deg,#fffaf0,#f7eedb
+  );
   color:#554b3e;
   border:1px solid #e0cda6;
   border-radius:16px;
@@ -680,7 +755,7 @@ h1 {
   margin-top:11px;
 }
 
-/* 가볍게 계속 내려오는 컨페티 */
+/* 계속 내려오는 작은 컨페티 */
 .confetti-layer {
   position:fixed;
   inset:0;
@@ -698,20 +773,24 @@ h1 {
 
 @keyframes confettiFall {
   0% {
-    transform:translate3d(0,-20px,0) rotate(0);
+    transform:
+      translate3d(0,-20px,0)
+      rotate(0);
     opacity:0;
   }
+
   10% { opacity:.75; }
   85% { opacity:.7; }
+
   100% {
-    transform:translate3d(var(--drift),110vh,0)
+    transform:
+      translate3d(var(--drift),110vh,0)
       rotate(var(--spin));
     opacity:0;
   }
 }
 
-/* 마지막에는 큰 폭죽 이미지 대신
-   작고 은은한 금빛 반짝임 */
+/* 화면을 가리지 않는 작은 반짝임 */
 .sparkle {
   position:fixed;
   z-index:4;
@@ -725,13 +804,28 @@ h1 {
 }
 
 @keyframes sparklePop {
-  0% { transform:scale(.1);opacity:0; }
-  30% { transform:scale(1.2);opacity:1; }
-  100% { transform:scale(0);opacity:0; }
+  0% {
+    transform:scale(.1);
+    opacity:0;
+  }
+
+  30% {
+    transform:scale(1.2);
+    opacity:1;
+  }
+
+  100% {
+    transform:scale(0);
+    opacity:0;
+  }
 }
 
 @media(max-width:360px) {
-  .page { padding-left:10px;padding-right:10px; }
+  .page {
+    padding-left:10px;
+    padding-right:10px;
+  }
+
   .card { padding:13px; }
   .ticket-grid { gap:7px; }
   .rows { gap:6px;padding:7px 4px; }
@@ -752,19 +846,28 @@ h1 {
 
 <body>
 
-<div class="confetti-layer" id="confettiLayer"
-     aria-hidden="true"></div>
+<div
+  class="confetti-layer"
+  id="confettiLayer"
+  aria-hidden="true">
+</div>
 
 <main class="page">
 
   <header class="topbar">
     <div>
-      <div class="brand">✦ BIRTHDAY LOTTERY ✦</div>
+      <div class="brand">
+        ✦ BIRTHDAY LOTTERY ✦
+      </div>
+
       <div class="date">
         2026. 10. 26 · SPECIAL EDITION
       </div>
     </div>
-    <div class="pill">🎂 VIP GIFT</div>
+
+    <div class="pill">
+      🎂 VIP GIFT
+    </div>
   </header>
 
   <div class="garland" aria-hidden="true">
@@ -779,9 +882,11 @@ h1 {
     <span class="cake">🎂</span>
 
     <h1>
-      축! <span class="shimmer">
+      축!
+      <span class="shimmer">
         이다인의 37번째 생일
-      </span> 🎉
+      </span>
+      🎉
     </h1>
 
     <p class="subtitle">
@@ -790,16 +895,25 @@ h1 {
     </p>
   </section>
 
-  <section class="card prize-card" id="introPrize">
-    <div class="prize-label">✦ GRAND PRIZE ✦</div>
+  <!-- 메인 당첨금 -->
+  <section
+    class="card prize-card"
+    id="introPrize">
+
+    <div class="prize-label">
+      ✦ GRAND PRIZE ✦
+    </div>
+
     <div class="prize-number shimmer">
       ₩1,000,000
     </div>
+
     <div class="subtitle">
       🎉 행운의 주인공은 바로 너! 🎉
     </div>
   </section>
 
+  <!-- 게임 규칙 -->
   <section class="card" id="rulesCard">
     <h2 class="card-title">
       📋 생일 복권 당첨 규칙
@@ -822,17 +936,20 @@ h1 {
       </div>
 
       <div class="rule-line">
-        ✦ 최대 <strong>1,000,000원</strong>의
+        ✦ 최대
+        <strong>1,000,000원</strong>의
         생일 선물을 획득하세요!
       </div>
     </div>
   </section>
 
+  <!-- 남은 횟수 -->
   <div class="status" id="status">
     <div>
       <div class="status-label">
         🎟️ 남은 도전 기회
       </div>
+
       <div class="status-value" id="remaining">
         3번 남았습니다!!
       </div>
@@ -851,42 +968,63 @@ h1 {
       🎁 LUCKY TICKET 🎁
     </h2>
 
-    <p class="subtitle" style="text-align:center">
+    <p
+      class="subtitle"
+      style="text-align:center">
+
       9장의 티켓 중 마음에 드는 것을 골라봐!<br>
       어떤 티켓에 행운이 숨어 있을까? ✨
     </p>
 
-    <div class="earnings hidden" id="selectionEarnings">
+    <div
+      class="earnings hidden"
+      id="selectionEarnings">
+
       <div class="earnings-title">
         🏆 지금까지의 당첨 내역
       </div>
 
-      <div class="earnings-grid"
-           id="selectionBreakdown"></div>
+      <div
+        class="earnings-grid"
+        id="selectionBreakdown">
+      </div>
 
       <div class="total-earned">
-        <span>💰 현재 누적 당첨금</span>
-        <strong id="selectionTotal">0원</strong>
+        <span>
+          💰 현재 누적 당첨금
+        </span>
+
+        <strong id="selectionTotal">
+          0원
+        </strong>
       </div>
     </div>
 
-    <div class="ticket-grid" id="ticketGrid"></div>
+    <div
+      class="ticket-grid"
+      id="ticketGrid">
+    </div>
   </section>
 
-  <!-- 스크래치 -->
+  <!-- 스크래치 복권 -->
   <section class="card hidden" id="play">
-    <div style="text-align:center;margin-bottom:14px">
+
+    <div
+      style="text-align:center;margin-bottom:14px">
+
       <div class="eyebrow" id="roundLabel">
         ✨ BIRTHDAY CHALLENGE ✨
       </div>
     </div>
 
     <div class="ticket-shell">
+
       <div class="ticket-head">
         <div>
           <div class="ticket-small">
             ★ OFFICIAL BIRTHDAY LOTTERY ★
           </div>
+
           <div class="ticket-big">
             🎁 LUCKY TICKET
           </div>
@@ -897,22 +1035,34 @@ h1 {
         </span>
       </div>
 
-      <div class="scratch-box" id="scratchBox">
+      <div
+        class="scratch-box"
+        id="scratchBox">
+
         <div class="rows" id="rows"></div>
+
         <canvas id="scratchCanvas"></canvas>
       </div>
     </div>
 
-    <p class="scratch-hint" id="scratchHint">
+    <p
+      class="scratch-hint"
+      id="scratchHint">
+
       🪙 은색 코팅을 손가락으로 긁어봐! ✨
     </p>
 
     <div class="result" id="result"></div>
 
-    <div class="round-summary hidden"
-         id="roundSummary"></div>
+    <div
+      class="round-summary hidden"
+      id="roundSummary">
+    </div>
 
-    <button class="action hidden" id="nextButton">
+    <button
+      class="action hidden"
+      id="nextButton">
+
       다음 복권 긁으러 가기 🎟️
     </button>
   </section>
@@ -920,12 +1070,15 @@ h1 {
   <!-- 최종 결과 -->
   <section class="card hidden" id="final">
 
-    <div style="text-align:center;font-size:34px">
+    <div
+      style="text-align:center;font-size:34px">
+
       🎂 ✨ 🎉 ✨ 🎂
     </div>
 
     <div class="final-title">
       빠밤!! 🎺<br>
+
       <span class="shimmer">
         이다인 생일 잭팟 당첨!
       </span>
@@ -940,7 +1093,9 @@ h1 {
         ₩1,000,000
       </div>
 
-      <div>🎁 최종 당첨금 확정! 🎁</div>
+      <div>
+        🎁 최종 당첨금 확정! 🎁
+      </div>
     </div>
 
     <div class="earnings final-breakdown">
@@ -948,7 +1103,9 @@ h1 {
         🎟️ 회차별 당첨 내역
       </div>
 
-      <div class="earnings-grid" id="finalBreakdown">
+      <div
+        class="earnings-grid"
+        id="finalBreakdown">
       </div>
     </div>
 
@@ -999,12 +1156,16 @@ h1 {
 복권 만들면서 나름 열심히 준비했는데 재밌게 했으면 좋겠다ㅎㅎ
 
 앞으로도 건강 잘 챙기고, 스트레스 너무 받지 말고, 하고 싶은 일 하면서 잘 지내!</div>
+
       <div class="signature">
         - 뀨으니가 -
       </div>
     </article>
 
-    <button class="action" id="saveButton">
+    <button
+      class="action"
+      id="saveButton">
+
       📸 기념 사진 저장하기
     </button>
 
@@ -1020,7 +1181,8 @@ h1 {
 (() => {
   "use strict";
 
-  const $ = id => document.getElementById(id);
+  const $ = id =>
+    document.getElementById(id);
 
   const money = value =>
     value.toLocaleString("ko-KR") + "원";
@@ -1029,18 +1191,37 @@ h1 {
     Math.floor(Math.random() * max);
 
   const faces = [
-    {id:"dad",icon:"👨",name:"아빠"},
-    {id:"mom",icon:"👩",name:"엄마"},
-    {id:"sis",icon:"👧",name:"동생"}
+    {
+      id:"dad",
+      icon:"👨",
+      name:"아빠"
+    },
+    {
+      id:"mom",
+      icon:"👩",
+      name:"엄마"
+    },
+    {
+      id:"sis",
+      icon:"👧",
+      name:"동생"
+    }
   ];
 
-  const prizes = [350000,0,650000];
+  // 회차별 당첨금은 고정
+  const prizes = [
+    350000,
+    0,
+    650000
+  ];
 
   let round = 0;
   let used = new Set();
+
   let active = false;
   let revealed = false;
   let drawing = false;
+
   let pointerId = null;
   let last = null;
   let strokes = 0;
@@ -1056,16 +1237,22 @@ h1 {
 
     for(let i=result.length-1;i>0;i--){
       const j=rand(i+1);
-      [result[i],result[j]]=
-        [result[j],result[i]];
+
+      [result[i],result[j]]=[
+        result[j],result[i]
+      ];
     }
 
     return result;
   }
 
   function totalEarned() {
-    return prizes.slice(0,round)
-      .reduce((sum,value)=>sum+value,0);
+    return prizes
+      .slice(0,round)
+      .reduce(
+        (sum,value)=>sum+value,
+        0
+      );
   }
 
   function updateStatus() {
@@ -1077,12 +1264,17 @@ h1 {
     const dots=$("progressDots").children;
 
     for(let i=0;i<dots.length;i++){
-      dots[i].classList.toggle("done",i<round);
+      dots[i].classList.toggle(
+        "done",
+        i<round
+      );
     }
   }
 
+  // 회차별 당첨금 표시
   function makeBreakdown(targetId) {
     const target=$(targetId);
+
     target.innerHTML="";
 
     for(let i=0;i<3;i++){
@@ -1113,10 +1305,12 @@ h1 {
       money(totalEarned());
 
     $("selectionEarnings").classList.toggle(
-      "hidden",round===0
+      "hidden",
+      round===0
     );
   }
 
+  // 번호 없이 LUCKY 복권 9장
   function renderTickets() {
     $("ticketGrid").innerHTML="";
 
@@ -1132,25 +1326,46 @@ h1 {
         : '<span class="ticket-icon">🎟️</span>'+
           '<span class="ticket-name">LUCKY</span>';
 
-      button.addEventListener("click",()=>choose(i));
+      button.addEventListener(
+        "click",
+        ()=>choose(i)
+      );
+
       $("ticketGrid").appendChild(button);
     }
   }
 
+  // 복권 결과 생성
   function createRows() {
     let winners=[];
 
+    // 첫 번째 복권: 엄마 35만 원
     if(round===0){
-      winners=[{id:"mom",amount:350000}];
-    }else if(round===2){
       winners=[
-        {id:"dad",amount:350000},
-        {id:"sis",amount:300000}
+        {
+          id:"mom",
+          amount:350000
+        }
       ];
     }
 
-    const positions=
-      shuffle([0,1,2]).slice(0,winners.length);
+    // 두 번째 복권: 당첨 없음
+    // 세 번째 복권: 아빠 + 동생 2줄 당첨
+    else if(round===2){
+      winners=[
+        {
+          id:"dad",
+          amount:350000
+        },
+        {
+          id:"sis",
+          amount:300000
+        }
+      ];
+    }
+
+    const positions=shuffle([0,1,2])
+      .slice(0,winners.length);
 
     const rows=[];
 
@@ -1172,6 +1387,8 @@ h1 {
 
         amount=winner.amount;
       }else{
+        // 미당첨 줄은 절대로
+        // 같은 얼굴 3개가 나오지 않음
         do{
           trio=[
             faces[rand(3)].id,
@@ -1183,9 +1400,13 @@ h1 {
           trio[1]===trio[2]
         );
 
+        // 미당첨 줄에도 큰 금액 표시
+        // 10만, 20만, 50만, 100만 원
         const losingAmounts=[
-          1000,5000,10000,
-          30000,50000,100000
+          100000,
+          200000,
+          500000,
+          1000000
         ];
 
         amount=losingAmounts[
@@ -1193,14 +1414,25 @@ h1 {
         ];
       }
 
-      rows.push({trio,amount,win});
+      rows.push({
+        trio,
+        amount,
+        win
+      });
     }
 
     return rows;
   }
 
+  // 복권 선택
   function choose(index) {
-    if(active || used.has(index) || round>=3)return;
+    if(
+      active ||
+      used.has(index) ||
+      round>=3
+    ){
+      return;
+    }
 
     active=true;
     revealed=false;
@@ -1227,14 +1459,19 @@ h1 {
 
     $("rows").innerHTML="";
 
-    for(const item of createRows()){
+    const data=createRows();
+
+    for(const item of data){
       const row=document.createElement("div");
 
       row.className="scratch-row";
       row.dataset.win=String(item.win);
 
+      // 가족 얼굴 3칸
       for(const faceId of item.trio){
-        const face=faces.find(f=>f.id===faceId);
+        const face=faces.find(
+          f=>f.id===faceId
+        );
 
         const cell=document.createElement("div");
         cell.className="face-box";
@@ -1249,9 +1486,11 @@ h1 {
 
         cell.appendChild(icon);
         cell.appendChild(label);
+
         row.appendChild(cell);
       }
 
+      // 금액 표시 칸
       const amountBox=document.createElement("div");
       amountBox.className="amount-box";
 
@@ -1270,6 +1509,8 @@ h1 {
       $("rows").appendChild(row);
     }
 
+    // 결과가 잠깐 노출되지 않도록
+    // 복권을 표시하기 전에 코팅
     paintCoating();
 
     $("play").scrollIntoView({
@@ -1278,9 +1519,15 @@ h1 {
     });
   }
 
+  // 은색 스크래치 코팅
   function paintCoating() {
-    const rect=$("scratchBox").getBoundingClientRect();
-    const dpr=Math.min(window.devicePixelRatio||1,2);
+    const rect=$("scratchBox")
+      .getBoundingClientRect();
+
+    const dpr=Math.min(
+      window.devicePixelRatio||1,
+      2
+    );
 
     const width=rect.width;
     const height=rect.height;
@@ -1290,10 +1537,19 @@ h1 {
     canvas.style.pointerEvents="auto";
     canvas.style.background="transparent";
 
-    canvas.width=Math.max(1,Math.round(width*dpr));
-    canvas.height=Math.max(1,Math.round(height*dpr));
+    canvas.width=Math.max(
+      1,
+      Math.round(width*dpr)
+    );
 
-    ctx.setTransform(dpr,0,0,dpr,0,0);
+    canvas.height=Math.max(
+      1,
+      Math.round(height*dpr)
+    );
+
+    ctx.setTransform(
+      dpr,0,0,dpr,0,0
+    );
 
     const gradient=ctx.createLinearGradient(
       0,0,width,height
@@ -1308,16 +1564,26 @@ h1 {
     ctx.fillStyle=gradient;
     ctx.fillRect(0,0,width,height);
 
+    // 은색 반짝이
     for(let i=0;i<55;i++){
-      const x=rand(Math.max(1,Math.floor(width)));
-      const y=rand(Math.max(1,Math.floor(height)));
+      const x=rand(
+        Math.max(1,Math.floor(width))
+      );
+
+      const y=rand(
+        Math.max(1,Math.floor(height))
+      );
 
       ctx.fillStyle=i%2===0
         ? "#ffffff66"
         : "#62687555";
 
       ctx.beginPath();
-      ctx.arc(x,y,1+rand(3),0,Math.PI*2);
+      ctx.arc(
+        x,y,
+        1+rand(3),
+        0,Math.PI*2
+      );
       ctx.fill();
     }
 
@@ -1348,10 +1614,13 @@ h1 {
     };
   }
 
+  // 손가락 또는 마우스로 코팅 제거
   function erase(from,to) {
     ctx.save();
 
-    ctx.globalCompositeOperation="destination-out";
+    ctx.globalCompositeOperation=
+      "destination-out";
+
     ctx.lineCap="round";
     ctx.lineJoin="round";
 
@@ -1368,60 +1637,92 @@ h1 {
     ctx.restore();
   }
 
-  canvas.addEventListener("pointerdown",event=>{
-    if(!active || revealed || drawing)return;
+  canvas.addEventListener(
+    "pointerdown",
+    event=>{
+      if(
+        !active ||
+        revealed ||
+        drawing
+      ){
+        return;
+      }
 
-    event.preventDefault();
+      event.preventDefault();
 
-    drawing=true;
-    pointerId=event.pointerId;
-    last=getPoint(event);
+      drawing=true;
+      pointerId=event.pointerId;
+      last=getPoint(event);
 
-    try{
-      canvas.setPointerCapture(event.pointerId);
-    }catch(error){}
+      try{
+        canvas.setPointerCapture(
+          event.pointerId
+        );
+      }catch(error){}
 
-    erase(last,last);
-    checkScratch();
-  });
+      erase(last,last);
+      checkScratch();
+    }
+  );
 
-  canvas.addEventListener("pointermove",event=>{
-    if(
-      !drawing ||
-      revealed ||
-      event.pointerId!==pointerId
-    )return;
+  canvas.addEventListener(
+    "pointermove",
+    event=>{
+      if(
+        !drawing ||
+        revealed ||
+        event.pointerId!==pointerId
+      ){
+        return;
+      }
 
-    event.preventDefault();
+      event.preventDefault();
 
-    const current=getPoint(event);
+      const current=getPoint(event);
 
-    erase(last,current);
-    last=current;
-    strokes++;
+      erase(last,current);
+      last=current;
 
-    if(strokes%5===0)checkScratch();
-  });
+      strokes++;
+
+      if(strokes%5===0){
+        checkScratch();
+      }
+    }
+  );
 
   function stopDrawing(event) {
     if(
       !drawing ||
       event.pointerId!==pointerId
-    )return;
+    ){
+      return;
+    }
 
     drawing=false;
     pointerId=null;
     last=null;
+
     checkScratch();
   }
 
-  canvas.addEventListener("pointerup",stopDrawing);
-  canvas.addEventListener("pointercancel",stopDrawing);
+  canvas.addEventListener(
+    "pointerup",
+    stopDrawing
+  );
+
+  canvas.addEventListener(
+    "pointercancel",
+    stopDrawing
+  );
+
   canvas.addEventListener(
     "lostpointercapture",
     stopDrawing
   );
 
+  // 80% 긁으면 결과 자동 공개
+  // 화면에는 비율 안내 문구 표시 안 함
   function checkScratch() {
     if(!active || revealed)return;
 
@@ -1441,17 +1742,24 @@ h1 {
 
     for(let y=0;y<height;y+=step){
       for(let x=0;x<width;x+=step){
-        const alpha=data[(y*width+x)*4+3];
+        const alpha=data[
+          (y*width+x)*4+3
+        ];
 
         total++;
 
-        if(alpha<100)cleared++;
+        if(alpha<100){
+          cleared++;
+        }
       }
     }
 
-    if(cleared/total>=.80)reveal();
+    if(cleared/total>=.80){
+      reveal();
+    }
   }
 
+  // 결과 공개
   function reveal() {
     if(revealed)return;
 
@@ -1459,28 +1767,49 @@ h1 {
     drawing=false;
     pointerId=null;
 
-    canvas.style.transition="opacity .45s ease";
+    canvas.style.transition=
+      "opacity .45s ease";
+
     canvas.style.opacity="0";
     canvas.style.pointerEvents="none";
 
-    document.querySelectorAll(".scratch-row")
+    // 당첨 줄만 금색 강조
+    // 별도 줄을 추가하지 않아 높이 유지
+    document
+      .querySelectorAll(".scratch-row")
       .forEach(row=>{
+        const win=row.dataset.win==="true";
+
         row.classList.add(
-          row.dataset.win==="true"
-            ? "winner"
-            : "loser"
+          win?"winner":"loser"
         );
       });
 
     if(round===0){
       $("result").textContent=
         "🎉 빠밤!! 엄마 350,000원 당첨!! 💛";
-    }else if(round===1){
+    }
+
+    else if(round===1){
       $("result").textContent=
         "😝 앗ㅋㅋㅋ 꽝이다!! 0원! 마지막 기회가 남았다!!";
-    }else{
-      $("result").textContent=
-        "🎉 아빠 350,000원 + 동생 300,000원! 총 650,000원 잭팟!! 💛";
+    }
+
+    else{
+      // 마지막 복권은 2줄 당첨 강조
+      $("result").innerHTML=
+        '<span class="result-head">'+
+          '🎉 2줄 동시 당첨!! 🎉'+
+        '</span>'+
+
+        '<span class="result-detail">'+
+          '👨 아빠 350,000원<br>'+
+          '👧 동생 300,000원'+
+        '</span>'+
+
+        '<span class="result-total">'+
+          '🏆 총 650,000원 당첨!'+
+        '</span>';
     }
 
     $("scratchHint").textContent=
@@ -1494,65 +1823,99 @@ h1 {
     round++;
     updateStatus();
 
+    // 이번 회차 + 누적 당첨금
     $("roundSummary").innerHTML=
       '<div class="round-summary-row">'+
         '<span>🎟️ 이번 회차 당첨금</span>'+
-        '<strong>'+money(prizes[round-1])+'</strong>'+
+        '<strong>'+
+          money(prizes[round-1])+
+        '</strong>'+
       '</div>'+
+
       '<div class="round-summary-row">'+
         '<span>💰 현재 누적 당첨금</span>'+
-        '<strong>'+money(totalEarned())+'</strong>'+
+        '<strong>'+
+          money(totalEarned())+
+        '</strong>'+
       '</div>';
 
-    $("roundSummary").classList.remove("hidden");
+    $("roundSummary").classList.remove(
+      "hidden"
+    );
 
     $("nextButton").textContent=
       round===3
         ? "🎂 최종 당첨금 확인하기"
         : "🎟️ 다음 복권 긁으러 가기";
 
-    $("nextButton").classList.remove("hidden");
+    $("nextButton").classList.remove(
+      "hidden"
+    );
   }
 
-  $("nextButton").addEventListener("click",()=>{
-    if(!revealed)return;
+  // 다음 복권 또는 최종 화면 이동
+  $("nextButton").addEventListener(
+    "click",
+    ()=>{
+      if(!revealed)return;
 
-    active=false;
-    $("play").classList.add("hidden");
+      active=false;
 
-    if(round===3){
-      $("final").classList.remove("hidden");
+      $("play").classList.add("hidden");
 
-      makeBreakdown("finalBreakdown");
+      if(round===3){
+        $("final").classList.remove(
+          "hidden"
+        );
 
-      $("introPrize").classList.add("hidden");
-      $("rulesCard").classList.add("hidden");
-      $("status").classList.add("hidden");
-      $("selection").classList.add("hidden");
+        makeBreakdown("finalBreakdown");
 
-      launchConfetti(100);
-      launchSparkles(24);
+        $("introPrize").classList.add(
+          "hidden"
+        );
 
-      window.scrollTo({
-        top:0,
-        behavior:"smooth"
-      });
-    }else{
-      $("selection").classList.remove("hidden");
+        $("rulesCard").classList.add(
+          "hidden"
+        );
 
-      renderTickets();
-      updateEarnings();
+        $("status").classList.add(
+          "hidden"
+        );
 
-      requestAnimationFrame(()=>{
-        $("selection").scrollIntoView({
-          behavior:"smooth",
-          block:"start"
+        $("selection").classList.add(
+          "hidden"
+        );
+
+        launchConfetti(100);
+        launchSparkles(24);
+
+        window.scrollTo({
+          top:0,
+          behavior:"smooth"
         });
-      });
-    }
-  });
+      }
 
-  // 화면을 가리지 않는 작은 컨페티
+      else{
+        $("selection").classList.remove(
+          "hidden"
+        );
+
+        renderTickets();
+        updateEarnings();
+
+        // 페이지 맨 위가 아닌
+        // LUCKY TICKET 영역으로 이동
+        requestAnimationFrame(()=>{
+          $("selection").scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+          });
+        });
+      }
+    }
+  );
+
+  // 컨페티 색상
   const confettiColors=[
     "#f6d878",
     "#ff9cb7",
@@ -1562,6 +1925,7 @@ h1 {
     "#f6bb83"
   ];
 
+  // 작은 컨페티가 내려오는 효과
   function launchConfetti(count) {
     const layer=$("confettiLayer");
 
@@ -1570,11 +1934,19 @@ h1 {
 
       piece.className="confetti";
 
-      piece.style.left=Math.random()*100+"vw";
-      piece.style.width=(3+rand(5))+"px";
-      piece.style.height=(5+rand(7))+"px";
+      piece.style.left=
+        Math.random()*100+"vw";
+
+      piece.style.width=
+        (3+rand(5))+"px";
+
+      piece.style.height=
+        (5+rand(7))+"px";
+
       piece.style.background=
-        confettiColors[rand(confettiColors.length)];
+        confettiColors[
+          rand(confettiColors.length)
+        ];
 
       piece.style.animationDuration=
         (5+Math.random()*4)+"s";
@@ -1593,32 +1965,48 @@ h1 {
       );
 
       piece.style.borderRadius=
-        Math.random()>.6?"50%":"1px";
+        Math.random()>.6
+          ? "50%"
+          : "1px";
 
       layer.appendChild(piece);
 
-      setTimeout(()=>piece.remove(),11000);
+      setTimeout(
+        ()=>piece.remove(),
+        11000
+      );
     }
   }
 
-  // 조용하고 작은 금빛 반짝임
+  // 작은 금빛 반짝임
   function launchSparkles(count) {
     for(let i=0;i<count;i++){
-      const sparkle=document.createElement("span");
+      const sparkle=
+        document.createElement("span");
 
       sparkle.className="sparkle";
-      sparkle.style.left=(8+rand(84))+"vw";
-      sparkle.style.top=(8+rand(75))+"vh";
+
+      sparkle.style.left=
+        (8+rand(84))+"vw";
+
+      sparkle.style.top=
+        (8+rand(75))+"vh";
+
       sparkle.style.animationDelay=
         (Math.random()*1.1)+"s";
 
-      document.body.appendChild(sparkle);
+      document.body.appendChild(
+        sparkle
+      );
 
-      setTimeout(()=>sparkle.remove(),2600);
+      setTimeout(
+        ()=>sparkle.remove(),
+        2600
+      );
     }
   }
 
-  // 페이지가 열려 있는 동안 간헐적으로 내림
+  // 중간중간 계속 컨페티 내리기
   launchConfetti(35);
 
   setInterval(()=>{
@@ -1627,12 +2015,15 @@ h1 {
     }
   },2400);
 
-  // 기념 사진 저장
-  // 외부 캡처 라이브러리 없이 Canvas로
-  // 생일 카드와 세 편지를 직접 그려 PNG 생성
-  $("saveButton").addEventListener("click",savePhoto);
+  // 기념 사진 저장 기능
+  $("saveButton").addEventListener(
+    "click",
+    savePhoto
+  );
 
-  function roundedRect(ctx,x,y,w,h,r,fill,stroke) {
+  function roundedRect(
+    ctx,x,y,w,h,r,fill,stroke
+  ){
     ctx.beginPath();
     ctx.roundRect(x,y,w,h,r);
 
@@ -1648,7 +2039,10 @@ h1 {
     }
   }
 
-  function wrapText(ctx,text,maxWidth) {
+  // 캔버스용 자동 줄바꿈
+  function wrapText(
+    ctx,text,maxWidth
+  ){
     const lines=[];
     let current="";
 
@@ -1673,28 +2067,18 @@ h1 {
     }
 
     lines.push(current);
+
     return lines;
   }
 
-  function drawTextLines(
-    ctx,text,x,y,maxWidth,lineHeight
-  ){
-    const lines=wrapText(ctx,text,maxWidth);
-
-    for(const line of lines){
-      ctx.fillText(line,x,y);
-      y+=lineHeight;
-    }
-
-    return y;
-  }
-
+  // 기념 사진 PNG 생성
   async function savePhoto() {
     const button=$("saveButton");
     const originalText=button.textContent;
 
     button.disabled=true;
-    button.textContent="📸 기념 사진 만드는 중...";
+    button.textContent=
+      "📸 기념 사진 만드는 중...";
 
     try{
       await document.fonts.ready;
@@ -1704,68 +2088,73 @@ h1 {
       const padding=75;
       const innerWidth=width-padding*2;
 
-      const photo=document.createElement("canvas");
+      const photo=document.createElement(
+        "canvas"
+      );
+
       const pctx=photo.getContext("2d");
 
       photo.width=width*scale;
 
-      // 편지 길이에 맞춰 세로 크기 자동 계산
-      const letters=[
-        {
-          title:"💌 아빠가 다인이에게",
-          text:$("final").querySelectorAll(
-            ".letter-body"
-          )[0].textContent.trim(),
-          signature:
-            "- 영원한 보디가드 영태리 -"
-        },
-        {
-          title:"💌 엄마가 다인이에게",
-          text:$("final").querySelectorAll(
-            ".letter-body"
-          )[1].textContent.trim(),
-          signature:"- 사랑하는 엄마가 -"
-        },
-        {
-          title:"💌 동생이 언니에게",
-          text:$("final").querySelectorAll(
-            ".letter-body"
-          )[2].textContent.trim(),
-          signature:""
-        }
-      ];
+      // 실제 화면의 편지 내용을 가져와
+      // 기념 사진에도 동일하게 표시
+      const letterElements=
+        $("final").querySelectorAll(".letter");
 
-      const fontFamily='"Noto Sans KR",sans-serif';
+      const letters=Array.from(
+        letterElements
+      ).map(letter=>({
+        title:letter.querySelector("h3")
+          .textContent.trim(),
+
+        text:letter.querySelector(
+          ".letter-body"
+        ).textContent.trim(),
+
+        signature:letter.querySelector(
+          ".signature"
+        )?.textContent.trim()||""
+      }));
+
+      const fontFamily=
+        '"Noto Sans KR",sans-serif';
 
       pctx.font=`30px ${fontFamily}`;
 
-      const letterLayouts=letters.map(letter=>{
-        const lines=wrapText(
-          pctx,
-          letter.text,
-          innerWidth-100
-        );
+      // 편지 길이에 따라 높이 계산
+      const letterLayouts=letters.map(
+        letter=>{
+          const lines=wrapText(
+            pctx,
+            letter.text,
+            innerWidth-100
+          );
 
-        return {
-          ...letter,
-          lines,
-          height:125+
-            lines.length*48+
-            (letter.signature?65:25)
-        };
-      });
+          return {
+            ...letter,
+            lines,
+            height:
+              125+
+              lines.length*48+
+              (letter.signature?65:25)
+          };
+        }
+      );
 
       const totalHeight=
         665+
         letterLayouts.reduce(
-          (sum,letter)=>sum+letter.height+28,0
+          (sum,letter)=>
+            sum+letter.height+28,
+          0
         )+
         100;
 
       photo.height=totalHeight*scale;
+
       pctx.scale(scale,scale);
 
-      // 배경
+      // 에메랄드 배경
       const bg=pctx.createLinearGradient(
         0,0,width,totalHeight
       );
@@ -1774,58 +2163,77 @@ h1 {
       bg.addColorStop(1,"#061a17");
 
       pctx.fillStyle=bg;
-      pctx.fillRect(0,0,width,totalHeight);
+      pctx.fillRect(
+        0,0,width,totalHeight
+      );
 
-      // 가장자리 장식
+      // 골드 테두리
       pctx.strokeStyle="#bfa060";
       pctx.lineWidth=3;
+
       pctx.strokeRect(
-        25,25,width-50,totalHeight-50
+        25,25,
+        width-50,
+        totalHeight-50
       );
 
       pctx.textAlign="center";
 
+      // 생일 제목
       pctx.fillStyle="#e8cc82";
       pctx.font=`bold 27px ${fontFamily}`;
+
       pctx.fillText(
         "✦ HAPPY BIRTHDAY ✦",
-        width/2,100
+        width/2,
+        100
       );
 
       pctx.fillStyle="#fff1c4";
       pctx.font=`900 48px ${fontFamily}`;
+
       pctx.fillText(
         "축! 이다인의 37번째 생일",
-        width/2,175
+        width/2,
+        175
       );
 
       pctx.fillStyle="#e9cb7d";
       pctx.font=`bold 27px ${fontFamily}`;
+
       pctx.fillText(
         "2026. 10. 26",
-        width/2,225
+        width/2,
+        225
       );
 
+      // 최종 당첨금 카드
       roundedRect(
-        pctx,75,275,930,230,25,
-        "#254637","#e7c574"
+        pctx,
+        75,275,930,230,25,
+        "#254637",
+        "#e7c574"
       );
 
       pctx.fillStyle="#f7e0a0";
       pctx.font=`bold 27px ${fontFamily}`;
+
       pctx.fillText(
         "🏆 TOTAL BIRTHDAY PRIZE 🏆",
-        width/2,338
+        width/2,
+        338
       );
 
       pctx.fillStyle="#fff1a6";
       pctx.font=`900 78px ${fontFamily}`;
+
       pctx.fillText(
         "₩1,000,000",
-        width/2,437
+        width/2,
+        437
       );
 
-      // 회차별 내역
+      // 회차별 당첨금
       pctx.fillStyle="#f5e4b8";
       pctx.font=`bold 26px ${fontFamily}`;
 
@@ -1845,11 +2253,14 @@ h1 {
 
       let y=635;
 
+      // 아빠, 엄마, 동생 편지
       for(const letter of letterLayouts){
         roundedRect(
           pctx,
-          padding,y,
-          innerWidth,letter.height,
+          padding,
+          y,
+          innerWidth,
+          letter.height,
           22,
           "#fff9eb",
           "#dfc998"
@@ -1866,16 +2277,24 @@ h1 {
           y+62
         );
 
+        // 편지 제목 구분선
         pctx.strokeStyle="#ddc9a8";
         pctx.lineWidth=2;
         pctx.beginPath();
-        pctx.moveTo(padding+45,y+82);
+
+        pctx.moveTo(
+          padding+45,
+          y+82
+        );
+
         pctx.lineTo(
           width-padding-45,
           y+82
         );
+
         pctx.stroke();
 
+        // 편지 본문
         pctx.fillStyle="#554b3e";
         pctx.font=`30px ${fontFamily}`;
 
@@ -1891,10 +2310,13 @@ h1 {
           textY+=48;
         }
 
+        // 서명
         if(letter.signature){
           pctx.textAlign="right";
           pctx.fillStyle="#8c6945";
-          pctx.font=`bold 26px ${fontFamily}`;
+
+          pctx.font=
+            `bold 26px ${fontFamily}`;
 
           pctx.fillText(
             letter.signature,
@@ -1912,24 +2334,37 @@ h1 {
 
       pctx.fillText(
         "✦ WITH LOVE, FROM YOUR FAMILY ✦",
-        width/2,totalHeight-68
+        width/2,
+        totalHeight-68
       );
 
-      const blob=await new Promise(resolve=>{
-        photo.toBlob(resolve,"image/png");
-      });
+      // PNG 파일 만들기
+      const blob=await new Promise(
+        resolve=>{
+          photo.toBlob(
+            resolve,
+            "image/png"
+          );
+        }
+      );
 
       if(!blob){
-        throw new Error("이미지 생성 실패");
+        throw new Error(
+          "이미지 생성 실패"
+        );
       }
 
       const url=URL.createObjectURL(blob);
+
       const link=document.createElement("a");
 
       link.href=url;
-      link.download="이다인_37번째_생일_기념사진.png";
+
+      link.download=
+        "이다인_37번째_생일_기념사진.png";
 
       document.body.appendChild(link);
+
       link.click();
       link.remove();
 
@@ -1939,6 +2374,7 @@ h1 {
 
     }catch(error){
       console.error(error);
+
       alert(
         "사진 저장 중 문제가 발생했어요. "+
         "다시 시도해 주세요."
@@ -1949,16 +2385,24 @@ h1 {
     }
   }
 
-  // 화면 크기 변경 시 스크래치 코팅 재설정
-  window.addEventListener("resize",()=>{
-    if(active && !revealed && !drawing){
-      paintCoating();
+  // 화면 크기가 변경되면 코팅 재설정
+  window.addEventListener(
+    "resize",
+    ()=>{
+      if(
+        active &&
+        !revealed &&
+        !drawing
+      ){
+        paintCoating();
+      }
     }
-  });
+  );
 
   renderTickets();
   updateStatus();
   updateEarnings();
+
 })();
 </script>
 
